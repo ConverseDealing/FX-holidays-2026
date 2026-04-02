@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FX Տոն Օրեր 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a18; min-height: 100vh; }
+  .page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #5f5e5a; margin-bottom: 1.5rem; }
+
+  .filter-block { background: #fff; border: 0.5px solid #d3d1c7; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .filter-title { font-size: 12px; font-weight: 500; color: #5f5e5a; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+  .btn-tog {
+    font-size: 12px; font-weight: 500; padding: 5px 12px;
+    border-radius: 8px; border: 0.5px solid #b4b2a9;
+    background: transparent; cursor: pointer; color: #1a1a18; transition: all 0.12s;
+    user-select: none;
+  }
+  .btn-tog:hover { background: #e8e7e3; }
+
+  /* Month active = blue */
+  .btn-month.active { background: #E6F1FB; color: #185FA5; border-color: #378ADD; border-width: 1.5px; }
+
+  /* Currency active = per-currency color */
+  .btn-cur.active { border-width: 1.5px; }
+  .btn-cur[data-cur="AED"].active { background: #FAC775; color: #412402; border-color: #BA7517; }
+  .btn-cur[data-cur="AUD"].active { background: #B5D4F4; color: #042C53; border-color: #378ADD; }
+  .btn-cur[data-cur="CAD"].active { background: #C0DD97; color: #173404; border-color: #639922; }
+  .btn-cur[data-cur="CHF"].active { background: #F4C0D1; color: #4B1528; border-color: #D4537E; }
+  .btn-cur[data-cur="CNY"].active { background: #F5C4B3; color: #4A1B0C; border-color: #D85A30; }
+  .btn-cur[data-cur="EUR"].active { background: #AFA9EC; color: #26215C; border-color: #7F77DD; }
+  .btn-cur[data-cur="GBP"].active { background: #5DCAA5; color: #04342C; border-color: #1D9E75; }
+  .btn-cur[data-cur="GEL"].active { background: #D3D1C7; color: #2C2C2A; border-color: #888780; }
+  .btn-cur[data-cur="INR"].active { background: #F7C1C1; color: #501313; border-color: #E24B4A; }
+  .btn-cur[data-cur="JPY"].active { background: #EEEDFE; color: #3C3489; border-color: #7F77DD; }
+  .btn-cur[data-cur="RUB"].active { background: #9FE1CB; color: #04342C; border-color: #1D9E75; }
+  .btn-cur[data-cur="USD"].active { background: #FAECE7; color: #993C1D; border-color: #D85A30; }
+
+  .btn-util { font-size: 12px; padding: 5px 12px; border-radius: 8px; border: 0.5px solid #b4b2a9; background: transparent; cursor: pointer; color: #5f5e5a; transition: all 0.12s; }
+  .btn-util:hover { background: #e8e7e3; }
+  .btn-util.danger { color: #993C1D; border-color: #E24B4A; }
+  .sep { width: 1px; height: 20px; background: #d3d1c7; margin: 0 2px; flex-shrink: 0; }
+
+  .results-info { font-size: 12px; color: #888780; margin-bottom: 8px; }
+  .month-label { font-size: 11px; font-weight: 500; color: #888780; margin: 1rem 0 5px; padding-left: 4px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .holiday-row { display: flex; align-items: stretch; min-height: 42px; border: 0.5px solid #d3d1c7; border-radius: 8px; margin-bottom: 5px; overflow: hidden; background: #fff; }
+  .date-col { min-width: 110px; padding: 8px 12px; font-size: 12px; font-weight: 500; color: #5f5e5a; display: flex; align-items: center; border-right: 0.5px solid #d3d1c7; background: #f5f4f0; flex-shrink: 0; }
+  .info-col { flex: 1; padding: 8px 12px; display: flex; flex-direction: column; justify-content: center; }
+  .event-name { font-size: 13px; font-weight: 500; color: #1a1a18; }
+  .cur-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 500; }
+  .tag-aed { background: #FAC775; color: #412402; }
+  .tag-aud { background: #B5D4F4; color: #042C53; }
+  .tag-cad { background: #C0DD97; color: #173404; }
+  .tag-chf { background: #F4C0D1; color: #4B1528; }
+  .tag-cny { background: #F5C4B3; color: #4A1B0C; }
+  .tag-eur { background: #AFA9EC; color: #26215C; }
+  .tag-gbp { background: #5DCAA5; color: #04342C; }
+  .tag-gel { background: #D3D1C7; color: #2C2C2A; }
+  .tag-inr { background: #F7C1C1; color: #501313; }
+  .tag-jpy { background: #EEEDFE; color: #3C3489; }
+  .tag-rub { background: #9FE1CB; color: #04342C; }
+  .tag-usd { background: #FAECE7; color: #993C1D; }
+  .note-box { font-size: 12px; color: #5f5e5a; background: #f5f4f0; border: 0.5px solid #d3d1c7; border-radius: 8px; padding: 12px 16px; margin-top: 1.5rem; line-height: 1.8; }
+  .note-box strong { color: #1a1a18; }
+  .no-results { font-size: 13px; color: #5f5e5a; padding: 2rem; text-align: center; background: #fff; border-radius: 8px; border: 0.5px solid #d3d1c7; }
+  @media (max-width: 600px) { .date-col { min-width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>FX Տոն Օրեր 2026</h1>
+  <p class="subtitle">12 արժույթների բանկային արձակուրդներ — Dealer-ի ուղեցույց</p>
+
+  <!-- Currency filter -->
+  <div class="filter-block">
+    <div class="filter-title">Արժույթ</div>
+    <div class="btn-row">
+      <button class="btn-util" onclick="selectAll('cur')">Բոլորը</button>
+      <button class="btn-util danger" onclick="clearAll('cur')">Մաքրել</button>
+      <div class="sep"></div>
+      <button class="btn-tog btn-cur active" data-cur="AED" onclick="toggleCur('AED')">AED</button>
+      <button class="btn-tog btn-cur active" data-cur="AUD" onclick="toggleCur('AUD')">AUD</button>
+      <button class="btn-tog btn-cur active" data-cur="CAD" onclick="toggleCur('CAD')">CAD</button>
+      <button class="btn-tog btn-cur active" data-cur="CHF" onclick="toggleCur('CHF')">CHF</button>
+      <button class="btn-tog btn-cur active" data-cur="CNY" onclick="toggleCur('CNY')">CNY</button>
+      <button class="btn-tog btn-cur active" data-cur="EUR" onclick="toggleCur('EUR')">EUR</button>
+      <button class="btn-tog btn-cur active" data-cur="GBP" onclick="toggleCur('GBP')">GBP</button>
+      <button class="btn-tog btn-cur active" data-cur="GEL" onclick="toggleCur('GEL')">GEL</button>
+      <button class="btn-tog btn-cur active" data-cur="INR" onclick="toggleCur('INR')">INR</button>
+      <button class="btn-tog btn-cur active" data-cur="JPY" onclick="toggleCur('JPY')">JPY</button>
+      <button class="btn-tog btn-cur active" data-cur="RUB" onclick="toggleCur('RUB')">RUB</button>
+      <button class="btn-tog btn-cur active" data-cur="USD" onclick="toggleCur('USD')">USD</button>
+    </div>
+  </div>
+
+  <!-- Month filter -->
+  <div class="filter-block">
+    <div class="filter-title">Ամիս</div>
+    <div class="btn-row">
+      <button class="btn-util" onclick="selectAll('mon')">Բոլորը</button>
+      <button class="btn-util danger" onclick="clearAll('mon')">Մաքրել</button>
+      <div class="sep"></div>
+      <button class="btn-tog btn-month active" data-m="0">Հուն</button>
+      <button class="btn-tog btn-month active" data-m="1">Փետ</button>
+      <button class="btn-tog btn-month active" data-m="2">Մրտ</button>
+      <button class="btn-tog btn-month active" data-m="3">Ապր</button>
+      <button class="btn-tog btn-month active" data-m="4">Մայ</button>
+      <button class="btn-tog btn-month active" data-m="5">Հուն</button>
+      <button class="btn-tog btn-month active" data-m="6">Հուլ</button>
+      <button class="btn-tog btn-month active" data-m="7">Օգ</button>
+      <button class="btn-tog btn-month active" data-m="8">Սեպ</button>
+      <button class="btn-tog btn-month active" data-m="9">Հոկ</button>
+      <button class="btn-tog btn-month active" data-m="10">Նոյ</button>
+      <button class="btn-tog btn-month active" data-m="11">Դեկ</button>
+    </div>
+  </div>
+
+  <div class="results-info" id="info"></div>
+  <div id="list"></div>
+
+  <div class="note-box">
+    ⚠️ <strong>Կարևոր նկատառումներ.</strong><br>
+    • <strong>AED</strong> — Իսլամական տոները կախված են Լուսնի դիտումից, ամսաթվերը հաստատվում են 1–2 օր առաջ<br>
+    • <strong>INR</strong> — Բանկային արձ. նահանգային են, ազգային մակ-ով փակ է 3 ազգ. տոն օրերին<br>
+    • <strong>RUB</strong> — Լրացուցիչ «bridge» արձ. օրեր՝ կախված կառ. որոշումից<br>
+    • <strong>GEL</strong> — Ուղղափառ Զատիկ 2026-ին՝ Ապրիլ 12<br>
+    • FX շուկան 24/5 աշխ., սակայն settlement-ի համար կենտ. բանկի բաց լինելը պարտ. է
+  </div>
+</div>
+
+<script>
+const MONTHS_FULL = ["Հունվար","Փետրվար","Մարտ","Ապրիլ","Մայիս","Հունիս","Հուլիս","Օգոստոս","Սեպտեմբեր","Հոկտեմբեր","Նոյեմբեր","Դեկտեմբեր"];
+const ALL_CURS = ["AED","AUD","CAD","CHF","CNY","EUR","GBP","GEL","INR","JPY","RUB","USD"];
+const ALL_MONS = [0,1,2,3,4,5,6,7,8,9,10,11];
+
+let selCur = new Set(ALL_CURS);
+let selMon = new Set(ALL_MONS);
+
+const DATA = [
+  {m:0, d:"Հուն 1",     e:"Ամանոր",                                c:["AED","AUD","CAD","CHF","CNY","EUR","GBP","GEL","INR","JPY","RUB","USD"]},
+  {m:0, d:"Հուն 1–8",   e:"Ամանոր արձ. (extended)",                 c:["RUB"]},
+  {m:0, d:"Հուն 1–4",   e:"Ամանոր — Shōgatsu",                      c:["JPY"]},
+  {m:0, d:"Հուն 1–3",   e:"Ամանոր արձ.",                            c:["GEL"]},
+  {m:0, d:"Հուն 2",     e:"Berchtoldstag",                          c:["CHF"]},
+  {m:0, d:"Հուն 7",     e:"Ուղղափառ Սուրբ Ծնունդ",                  c:["GEL","RUB"]},
+  {m:0, d:"Հուն 12",    e:"Coming of Age Day",                      c:["JPY"]},
+  {m:0, d:"Հուն 14",    e:"Հին Ամանոր",                             c:["GEL"]},
+  {m:0, d:"Հուն 19",    e:"Martin Luther King Jr. Day",             c:["USD"]},
+  {m:1, d:"Փետ 11",     e:"National Foundation Day",                c:["JPY"]},
+  {m:1, d:"Փետ 16–19",  e:"Lunar New Year / Chinese New Year",       c:["CNY"]},
+  {m:1, d:"Փետ 16",     e:"Presidents' Day",                        c:["USD"]},
+  {m:1, d:"Փետ 23",     e:"Defender of the Fatherland Day",         c:["RUB"]},
+  {m:1, d:"Փետ 23",     e:"Emperor's Birthday",                     c:["JPY"]},
+  {m:2, d:"Մրտ 3",      e:"Holi (Ազգային)",                         c:["INR"]},
+  {m:2, d:"Մրտ 8",      e:"Կանանց օր",                              c:["GEL","RUB"]},
+  {m:2, d:"Մրտ 19–22",  e:"Eid Al-Fitr ⚠️",                        c:["AED"]},
+  {m:2, d:"Մրտ 20",     e:"Spring Equinox Day",                     c:["JPY"]},
+  {m:3, d:"Ապր 1",      e:"Բանկերի տարեկան փակում",                  c:["INR"]},
+  {m:3, d:"Ապր 3",      e:"Good Friday (Ավագ ուրբաթ)",               c:["AUD","CAD","CHF","EUR","GBP"]},
+  {m:3, d:"Ապր 5",      e:"Qingming Festival",                      c:["CNY"]},
+  {m:3, d:"Ապր 6",      e:"Easter Monday",                          c:["AUD","CAD","CHF","EUR","GBP"]},
+  {m:3, d:"Ապր 10–13",  e:"Ուղղափառ Զատիկ",                         c:["GEL"]},
+  {m:3, d:"Ապր 14",     e:"Ambedkar Jayanti",                       c:["INR"]},
+  {m:3, d:"Ապր 29",     e:"Showa Day",                              c:["JPY"]},
+  {m:4, d:"Մայ 1",      e:"Աշխատանքի օր",                           c:["CHF","CNY","EUR","GEL","RUB"]},
+  {m:4, d:"Մայ 3",      e:"Constitution Memorial Day",              c:["JPY"]},
+  {m:4, d:"Մայ 4",      e:"Greenery Day",                           c:["JPY"]},
+  {m:4, d:"Մայ 5",      e:"Children's Day",                         c:["JPY"]},
+  {m:4, d:"Մայ 6",      e:"Substitute Holiday (Constitution Day)",  c:["JPY"]},
+  {m:4, d:"Մայ 9",      e:"Հաղթանակի օր",                           c:["RUB"]},
+  {m:4, d:"Մայ 12",     e:"Ascension Day",                          c:["CHF"]},
+  {m:4, d:"Մայ 25",     e:"Spring Bank Holiday",                    c:["GBP"]},
+  {m:4, d:"Մայ 25",     e:"Memorial Day",                           c:["USD"]},
+  {m:4, d:"Մայ 25–29",  e:"Arafat Day + Eid Al-Adha ⚠️",           c:["AED"]},
+  {m:4, d:"Մայ 26",     e:"Whit Monday",                            c:["CHF"]},
+  {m:5, d:"Հուն 19",    e:"Juneteenth National Independence Day",   c:["USD"]},
+  {m:5, d:"Հուն 19",    e:"Dragon Boat Festival ⚠️",                c:["CNY"]},
+  {m:6, d:"Հուլ 20",    e:"Marine Day",                             c:["JPY"]},
+  {m:7, d:"Օգ 1",       e:"Swiss National Day",                     c:["CHF"]},
+  {m:7, d:"Օգ 11",      e:"Mountain Day",                           c:["JPY"]},
+  {m:7, d:"Օգ 17",      e:"Independence Day",                       c:["INR"]},
+  {m:7, d:"Օգ 17–21",   e:"Obon (հաստ-ներ փակ)",                    c:["JPY"]},
+  {m:7, d:"Օգ 24",      e:"Prophet's Birthday ⚠️",                  c:["AED"]},
+  {m:7, d:"Օգ 31",      e:"Summer Bank Holiday",                    c:["GBP"]},
+  {m:8, d:"Սեպ 7",      e:"Labor Day",                              c:["USD"]},
+  {m:8, d:"Սեպ 14",     e:"Exaltation of the Holy Cross",           c:["GEL"]},
+  {m:8, d:"Սեպ 21",     e:"Respect for the Aged Day",               c:["JPY"]},
+  {m:8, d:"Սեպ 22",     e:"Silver Week bridge day",                 c:["JPY"]},
+  {m:8, d:"Սեպ 23",     e:"Autumnal Equinox Day",                   c:["JPY"]},
+  {m:9, d:"Հոկ 1–8",    e:"National Golden Week",                   c:["CNY"]},
+  {m:9, d:"Հոկ 2",      e:"Gandhi Jayanti",                         c:["INR"]},
+  {m:9, d:"Հոկ 12",     e:"Columbus Day (ոչ բոլոր բանկ.)",          c:["USD"]},
+  {m:9, d:"Հոկ 12",     e:"Sports Day",                             c:["JPY"]},
+  {m:9, d:"Հոկ ~19",    e:"Islamic New Year ⚠️",                    c:["AED"]},
+  {m:10,d:"Նոյ 3",      e:"Culture Day",                            c:["JPY"]},
+  {m:10,d:"Նոյ 4",      e:"National Unity Day",                     c:["RUB"]},
+  {m:10,d:"Նոյ 11",     e:"Veterans Day",                           c:["USD"]},
+  {m:10,d:"Նոյ 23",     e:"Labor Thanksgiving Day",                 c:["JPY"]},
+  {m:10,d:"Նոյ 26",     e:"Thanksgiving Day",                       c:["USD"]},
+  {m:11,d:"Դեկ 2–3",    e:"UAE National Day",                       c:["AED"]},
+  {m:11,d:"Դեկ 25",     e:"Սուրբ Ծնունդ (Christmas Day)",           c:["AUD","CAD","CHF","EUR","GBP","USD","GEL","INR"]},
+  {m:11,d:"Դեկ 26",     e:"Boxing Day",                             c:["AUD","CAD","CHF","EUR","GBP"]},
+  {m:11,d:"Դեկ 26",     e:"Independence Day (Georgia)",             c:["GEL"]},
+  {m:11,d:"Դեկ 31",     e:"New Year's Eve + Ռուս. ամ. արձ.",        c:["AED","RUB"]},
+  {m:11,d:"Դեկ 26–Հուն 4",e:"New Year Holiday Period (ոչ պաշտ.)",  c:["JPY"]},
+];
+
+function toggleCur(c) {
+  selCur.has(c) ? selCur.delete(c) : selCur.add(c);
+  document.querySelector(`.btn-cur[data-cur="${c}"]`).classList.toggle('active', selCur.has(c));
+  render();
+}
+function toggleMon(m) {
+  const mi = parseInt(m);
+  selMon.has(mi) ? selMon.delete(mi) : selMon.add(mi);
+  document.querySelector(`.btn-month[data-m="${mi}"]`).classList.toggle('active', selMon.has(mi));
+  render();
+}
+function selectAll(type) {
+  if (type === 'cur') { ALL_CURS.forEach(c => { selCur.add(c); document.querySelector(`.btn-cur[data-cur="${c}"]`).classList.add('active'); }); }
+  else { ALL_MONS.forEach(i => { selMon.add(i); document.querySelector(`.btn-month[data-m="${i}"]`).classList.add('active'); }); }
+  render();
+}
+function clearAll(type) {
+  if (type === 'cur') { ALL_CURS.forEach(c => { selCur.delete(c); document.querySelector(`.btn-cur[data-cur="${c}"]`).classList.remove('active'); }); }
+  else { ALL_MONS.forEach(i => { selMon.delete(i); document.querySelector(`.btn-month[data-m="${i}"]`).classList.remove('active'); }); }
+  render();
+}
+
+document.querySelectorAll('.btn-month').forEach(btn => {
+  btn.addEventListener('click', () => toggleMon(btn.dataset.m));
+});
+
+function render() {
+  const rows = DATA.filter(r =>
+    selMon.has(r.m) &&
+    selCur.size > 0 && r.c.some(c => selCur.has(c))
+  );
+  const listEl = document.getElementById('list');
+  const infoEl = document.getElementById('info');
+  if (!rows.length) {
+    listEl.innerHTML = '<div class="no-results">Ոչ մի արձակուրդ չի գտնվել ընտրված ֆիլտրերով</div>';
+    infoEl.textContent = '';
+    return;
+  }
+  infoEl.textContent = rows.length + ' արձակուրդ · ' + selMon.size + ' ամիս · ' + selCur.size + ' արժույթ';
+  const months = [...new Set(rows.map(r => r.m))].sort((a,b) => a-b);
+  let html = '';
+  months.forEach(mi => {
+    html += `<div class="month-label">${MONTHS_FULL[mi]}</div>`;
+    rows.filter(r => r.m === mi).forEach(r => {
+      const tags = r.c.filter(c => selCur.has(c)).map(c => `<span class="tag tag-${c.toLowerCase()}">${c}</span>`).join('');
+      html += `<div class="holiday-row"><div class="date-col">${r.d}</div><div class="info-col"><div class="event-name">${r.e}</div><div class="cur-tags">${tags}</div></div></div>`;
+    });
+  });
+  listEl.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
